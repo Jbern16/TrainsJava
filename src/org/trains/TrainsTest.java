@@ -57,15 +57,15 @@ public class TrainsTest {
 	public void testCanSumDistancesFromPath() {
 		ArrayList<String> stations = createStationsArray(); 
 		Trains train = new Trains(stations);
-		int sumABC = train.distance("ABC");
-		int sumAD = train.distance("AD");
-		int sumADC = train.distance("ADC");
-		int sumAEBCD = train.distance("AEBCD");
-//		int sumAED = train.distance("AED");
-		assertEquals(9, sumABC);
-		assertEquals(5, sumAD);
-		assertEquals(13, sumADC);
-		assertEquals(22, sumAEBCD);
-//		assertEquals("NO SUCH ROUTE", sumAED);
+		String sumABC = train.routeDistance("ABC");
+		String sumAD = train.routeDistance("AD");
+		String sumADC = train.routeDistance("ADC");
+		String sumAEBCD = train.routeDistance("AEBCD");
+		String sumAED = train.routeDistance("AED");
+		assertEquals("9", sumABC);
+		assertEquals("5", sumAD);
+		assertEquals("13", sumADC);
+		assertEquals("22", sumAEBCD);
+		assertEquals("NO SUCH ROUTE", sumAED);
 	}
 }
