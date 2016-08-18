@@ -6,12 +6,12 @@ public class Graph {
 		
 		public HashMap<String, HashMap<String, Integer>> graph;
 		public HashMap<String, Integer> costs;
-		public HashMap<String, Integer> parents;
+		public HashMap<String, String> parents;
 
 		public Graph(ArrayList<String> stations) {
 			this.graph = initializeGraph(stations);
 			this.costs = new HashMap<String, Integer>();
-			this.parents = new HashMap<String, Integer>();
+			this.parents = new HashMap<String, String>();
 			
 	  }  
 		
@@ -30,4 +30,11 @@ public class Graph {
 			}
 			return graph;
 	    }
+		
+//		private HashMap<String, Integer> initializeStopsCosts(String start, String end) {
+//			int currentCost = 0;
+//			A - C
+			
+			
+//		}
 }

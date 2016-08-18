@@ -41,7 +41,6 @@ public class TrainsTest {
 		int distanceCE = train.data.graph.get("C").get("E");
 		int distanceEB = train.data.graph.get("E").get("B");
 		int distanceAE = train.data.graph.get("A").get("E");
-//		
 		assertEquals(distanceAB, 5);
 		assertEquals(distanceBC, 4);
 		assertEquals(distanceCD, 8);
@@ -67,5 +66,25 @@ public class TrainsTest {
 		assertEquals("13", sumADC);
 		assertEquals("22", sumAEBCD);
 		assertEquals("NO SUCH ROUTE", sumAED);
+	}
+	
+	@Test
+	public void testCanFindNumberOfRoutesFromStartToEnd(){
+		ArrayList<String> stations = createStationsArray(); 
+		Trains train = new Trains(stations);
+		int tripsCC = train.numberOfTripsMax("C", "C", 3);
+		int tripsAC = train.numberOfTripsExactStops("A", "C", 4);
+		assertEquals(tripsCC, 2);
+		assertEquals(tripsAC, 3);
+	}
+	
+	@Test
+	public void testCanFindShortestRoute(){
+		ArrayList<String> stations = createStationsArray(); 
+		Trains train = new Trains(stations);
+		int tripsAC = train.shortestRoute("A", "C");
+		int tripsBB = train.shortestRoute("B", "B");
+		assertEquals(tripsAC, 9);
+		assertEquals(tripsBB, 9);
 	}
 }
