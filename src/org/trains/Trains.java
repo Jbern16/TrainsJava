@@ -59,6 +59,8 @@ public class Trains {
 		 return totalTrips;
 	}
 
+	
+	//this is giving me problems --- need to find better solution --- dfs??
 	protected int numberOfTripsExactStops(String start, String end, int exact ) {
 		int totalTrips = 0;
 		 Queue<String> queue = new ArrayDeque<String>();
@@ -89,27 +91,28 @@ public class Trains {
 	protected int shortestRoute(String start, String end) {
 		data.createCosts(start, end);
 		data.createParents(start, end);
+		
 		ArrayList<String> processed = new ArrayList<String>();
 		String node = findLowestCostNode(data.costs, processed);
+		
 		while (node != null) {
 			int cost = data.costs.get(node);
 			HashMap<String, Integer>neighbors = data.graph.get(node);
 			for (String key : neighbors.keySet()) {
 				int newCost = cost + neighbors.get(key);
+			
+				
 				if( data.costs.get(key) > newCost) {
 					data.costs.put(key, newCost);
 					data.parents.put(key, node);
 				}
 			}
+	
 			processed.add(node);
 			node = findLowestCostNode(data.costs, processed);
 		}
 		
-		int sumOfSmallestDistance = 0;
-		for (int cost : data.costs.values()) {
-			sumOfSmallestDistance += cost;
-		}
-		return sumOfSmallestDistance;
+		return data.costs.get(end);
 	}
 	
 	private String findLowestCostNode(HashMap<String, Integer> costs, ArrayList<String> processed) {

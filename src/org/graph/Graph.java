@@ -31,10 +31,20 @@ public class Graph {
 			return graph;
 	    }
 		
-//		private HashMap<String, Integer> initializeStopsCosts(String start, String end) {
-//			int currentCost = 0;
-//			A - C
+		public void createCosts(String start, String end) {
+			for (String key : graph.get(start).keySet()) {
+				costs.put(key, graph.get(start).get(key));
+			}
 			
-			
-//		}
+			costs.put(end, Integer.MAX_VALUE);
+		}
+		
+		public void createParents(String start, String end) {
+			for (String node : costs.keySet()){
+				parents.put(node, start);
+			}
+			parents.put(end, "Unknown");
+		}
+		
+
 }
