@@ -3,19 +3,20 @@ package org.trains;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 import java.util.Stack;
-
 import org.graph.Graph;
 
 public class Trains {
 	public Graph data;
+	public int trips;
+	public int currentDistance;
 	  
 	 public Trains(ArrayList<String> stations) {
 		 this.data = new Graph(stations);
+		 this.trips = 0;
+		 this.currentDistance = 0;
 	  }
 	  
 	protected String routeDistance(String inputCoords) {
@@ -88,6 +89,38 @@ public class Trains {
 		 return totalTrips;
 	}
 	
+	protected int amountOfTripsWithinDistance(String start, String end, int maxDistance) {
+		LinkedList<String> visited = new LinkedList();
+        visited.add(start);
+        amountOfTripsWithinDistance(start, end, visited, maxDistance);
+        return this.trips;
+	}
+			
+		        
+		 
+   private void amountOfTripsWithinDistance(String start, String end, LinkedList<String> visited, int maxDistance) {
+       LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
+	   for (String node : nodes) {
+	         if (node.equals(end)) {
+	        	currentDistance += 5;
+	            visited.add(node);
+	            
+	            trips += 1;
+	            visited.removeLast();
+	           }
+	        }
+	        for (String node : nodes) {
+	            if (currentDistance >= maxDistance) {
+	                continue;
+	            }
+	            visited.addLast(node);
+	            amountOfTripsWithinDistance(start, end, visited, maxDistance);
+	            visited.removeLast();
+	        }
+	       
+	        
+   }
+ 
 	protected int shortestRoute(String start, String end) {
 		data.createCosts(start, end);
 		data.createParents(start, end);
@@ -114,6 +147,7 @@ public class Trains {
 		
 		return data.costs.get(end);
 	}
+	
 	
 	private String findLowestCostNode(HashMap<String, Integer> costs, ArrayList<String> processed) {
 		Integer lowestCost = Integer.MAX_VALUE;

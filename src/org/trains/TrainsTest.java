@@ -3,6 +3,7 @@ package org.trains;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -86,5 +87,13 @@ public class TrainsTest {
 		int tripsBB = train.shortestRoute("B", "B");
 		assertEquals(tripsAC, 9);
 		assertEquals(tripsBB, 9);
+	}
+	
+	@Test
+	public void testCanFindAmountOfRoutesUnderCertainDistance(){
+		ArrayList<String> stations = createStationsArray(); 
+		Trains train = new Trains(stations);
+		int tripsCC = train.amountOfTripsWithinDistance("C", "C", 30);
+		assertEquals(tripsCC, 7);
 	}
 }

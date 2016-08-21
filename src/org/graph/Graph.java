@@ -1,6 +1,8 @@
 package org.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class Graph {
 		
@@ -45,6 +47,14 @@ public class Graph {
 			}
 			parents.put(end, "Unknown");
 		}
+		
+		public LinkedList<String> adjacentNodes(String last) {
+	        Set<String> adjacent = graph.get(last).keySet();
+	        if(adjacent==null) {
+	            return new LinkedList();
+	        }
+	        return new LinkedList<String>(adjacent);
+	    }
 		
 
 }
