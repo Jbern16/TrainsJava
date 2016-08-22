@@ -44,25 +44,25 @@ to the above questions to ``stations_output.txt``.
 
 2) Run:
 
-* With the build complete run Main.java inside of src/main by using the run button on the toolbar. This should create or edit station_output.txt
+* With the build complete run `Main.java` inside of `src/main` by using the run button on the toolbar. This should create or edit `station_output.txt`
 
 ### To Run Tests: 
 
 * Tests are using the data asked from the problem 
 
-* With the project open in Eclipse, use the arrow next to the run button to select the RunAllTests config
+* With the project open in Eclipse, use the arrow next to the run button to select the `RunAllTests` config
 
-* This will run the the TrainsTest and GraphTest
+* This will run the the `TrainsTest.java` and `GraphTest.java`
 
 ### To Edit Stations:
 
-* Open station_list.txt in the root of the folder
+* Open `station_list.txt` in the root of the folder
 
 * On each line, provide a route and distance. For example "AB5" would represent a route from A to B with a distance of 5
 
 ### To Edit Outputs: 
 
-* Open Main.java in src/main
+* Open `Main.java` in `src/main`
 
 * The following hooks can be used to to find routing data 
 
