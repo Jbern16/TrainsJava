@@ -99,7 +99,7 @@ public class Trains extends TrainsHelper {
         return trips;
 	}
 				        
-   private void amountOfTripsWithinDistance(String end, LinkedList<String> visited, int maxDistance) {
+	private void amountOfTripsWithinDistance(String end, LinkedList<String> visited, int maxDistance) {
        LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
        boolean maxPathReached = false;
 		for (String node : nodes) {
