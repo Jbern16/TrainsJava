@@ -68,18 +68,18 @@ to the above questions to ``stations_output.txt``.
 
  ```
   routeDistance(String) 
-   * find distance from a specific route as a string
+   * finds distance from a specific route as a string
 	
   numberOfTripsMax(String start of route, String end of route, Integer maximum number of trips)
-   * find number of trips within a max number of stops
+   * find number of trips within a max number of stops using a breadth first search
 	
   numberOfTripsExactStops(String start of route, String end of route, Integer exact number of trips) 
-   * find number of trips with an exact number of stops
+   * find number of trips with an exact number of stops using a depth first search
 	
   shortestRoute(String start of route, String end of route) 
-   * find shortest route between two stations
+   * find shortest route between two stations using Dijkstra's Algorirth
 	
   amountOfTripsWithinDistance(String start of route, String end of route, Integer maximum distance allowed) 
-   * find all routes from start to end under a certain distance apart 
+   * find all routes from start to end under a certain distance apart using a depth first search. 
 
    ```
