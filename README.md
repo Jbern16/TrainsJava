@@ -44,13 +44,22 @@ to the above questions to ``stations_output.txt``.
 
 2) Run:
 
-* With the build complete run `Main.java` inside of `src/main` by using the run button on the toolbar. This should create or edit `station_output.txt`
+* With the build complete, in the package explorer,  right click on the `TrainsJava` and click `Run As -> Java Application`.
+
+* Select `Main`
+
+* This should create or edit `station_output.txt`
+
+* If first time running, refresh Workspace by right clicking `TrainsJava` and selecting `Refresh` - this will update your pakage explorer with created text file.
 
 ### To Run Tests: 
 
 * Tests are using the data asked from the problem 
 
-* With the project open in Eclipse, use the arrow next to the run button to select the `RunAllTests` config
+* With the project open in Eclipse, in the package explorer, right click on `TrainsJava` and click `Run As --> JUnit Test`
+* On Mac You can use 
+
+* Select `RunAllTests` config
 
 * This will run the the `TrainsTest.java` and `GraphTest.java`
 
