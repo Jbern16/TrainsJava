@@ -41,17 +41,16 @@ public class Trains {
 		 Queue<String> queue = new ArrayDeque<String>();
 		 Queue<String> parentQueue = new ArrayDeque<String>();
 		 String currentParent = start;
-		 queue.addAll(data.graph.get(start).keySet());
+		 queue.addAll(data.adjacentNodes(start));
 		 int currentDepth = 0;
 		 while (currentDepth < max) {
 			  String neighbor = queue.remove();
 			  parentQueue.add(neighbor);
 			  if (neighbor.equals(end)) {
 				  totalTrips += 1;
-			  }  else {
-				  queue.addAll(data.graph.get(neighbor).keySet());				  	  
-			  	}
-			  
+			  } else{
+				  queue.addAll(data.adjacentNodes(neighbor));  
+			  } 
 			  if (data.graph.get(currentParent).get(neighbor) == null) {
 				  currentParent = parentQueue.remove();
 				  currentDepth += 1;
@@ -60,18 +59,21 @@ public class Trains {
 		 return totalTrips;
 	}
 
-	
-	//this is giving me problems --- need to find better solution --- dfs??
 	protected int numberOfTripsExactStops(String start, String end, int exact ) {
 		LinkedList<String> visited = new LinkedList();
+		trips = 0;
         visited.add(start);
         numberOfTripsExactStops(start, end, visited, exact);
-        return this.trips;
+        return trips;
+        
 	}
 	
 	private void numberOfTripsExactStops(String start, String end, LinkedList<String> visited, int exact) {
 		LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
 			for (String node : nodes) {
+				if (visited.size() > exact) {
+					continue;
+				}
 				if (node.equals(end)) {
 					if (visited.size() == (exact)) {
 						trips += 1;
@@ -79,8 +81,8 @@ public class Trains {
 					visited.add(node);
 					visited.removeLast();
 					break;
-		         	}
-		      }
+		         }
+		    }
 		    for (String node : nodes) {
 		    	if (visited.contains(node) && data.graph.get(node).get(end) == null) {
 		            continue;
@@ -88,34 +90,43 @@ public class Trains {
 		    	visited.addLast(node);
 		        numberOfTripsExactStops(start, end, visited, exact);
 		        visited.removeLast();
-		      }
+		    }
 	}
 		
-	
-
 	protected int amountOfTripsWithinDistance(String start, String end, int maxDistance) {
 		LinkedList<String> visited = new LinkedList();
+		trips = 0;
         visited.add(start);
         amountOfTripsWithinDistance(start, end, visited, maxDistance);
-        return this.trips;
+        return trips;
 	}
 				        
    private void amountOfTripsWithinDistance(String start, String end, LinkedList<String> visited, int maxDistance) {
        LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
+       boolean maxPathReached = false;
+		for (String node : nodes) {
+			if (node.equals(end)) {
+				visited.add(node);
+				int routedDistance =  Integer.valueOf(routeDistance(stringedRoute(visited)));
+				if (routedDistance < maxDistance) {
+					trips += 1;
+				} else {
+					maxPathReached = true;
+				}
+				
+				visited.removeLast();
+				break;
+	         }
+	    }
+	    for (String node : nodes) {
+	    	if (maxPathReached) {
+	            continue;
+	        }
+	    	visited.addLast(node);
+	        amountOfTripsWithinDistance(start, end, visited, maxDistance);
+	        visited.removeLast();
+	    }
        
-//	            StringBuilder visitedAsStringBuild = new StringBuilder();
-//	            for (String locale : visited) {
-//	            	visitedAsStringBuild.append(locale);
-//	            }
-//	            final String visitedAsString = visitedAsStringBuild.toString();
-//	  
-//	            int routedDistance = Integer.valueOf(routeDistance(visitedAsString));
-//	            
-//	            if (routedDistance >= maxDistance) {
-//	                continue;
-//	            }
-	    
-	 
    }
  
 	protected int shortestRoute(String start, String end) {
@@ -131,7 +142,6 @@ public class Trains {
 			for (String key : neighbors.keySet()) {
 				int newCost = cost + neighbors.get(key);
 			
-				
 				if( data.costs.get(key) > newCost) {
 					data.costs.put(key, newCost);
 					data.parents.put(key, node);
@@ -145,6 +155,14 @@ public class Trains {
 		return data.costs.get(end);
 	}
 	
+	private String stringedRoute(LinkedList<String> route) {
+		StringBuilder visitedAsStringBuild = new StringBuilder();
+        for (String locale : route) {
+        	visitedAsStringBuild.append(locale);
+        }
+        
+        return visitedAsStringBuild.toString();
+	}
 	
 	private String findLowestCostNode(HashMap<String, Integer> costs, ArrayList<String> processed) {
 		Integer lowestCost = Integer.MAX_VALUE;
