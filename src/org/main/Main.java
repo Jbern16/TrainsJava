@@ -19,9 +19,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		ArrayList<String> stations = Reader.loadStations("station_list.txt");
-		
-		
 		Trains train = new Trains(stations);
+		
 		// to find distance, please insert or edit the route argument for routeDistance below as a String
 		String output1 = train.routeDistance("ABC");
 		String output2 = train.routeDistance("AD");
@@ -42,7 +41,9 @@ public class Main {
 		// to find amount of trips within a specific distance, please provide a start, then end, then a maximum distance
 		int output10   = train.amountOfTripsWithinDistance("C", "C", 30);
 		
+		// sends all outputs off to formatter to be formatted as one string
 		String formmatedData =  Formatter.formatOutput(output1, output2, output3, output4, output5, output6, output7, output8, output9, output10);
+		// writes formatted data to station_output.txt in project directory.
 		Writer.writeOutputs(formmatedData);
 	}
 
