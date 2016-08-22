@@ -1,10 +1,11 @@
-package org.graph;
+package test;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import org.graph.Graph;
 import org.junit.Test;
 
 

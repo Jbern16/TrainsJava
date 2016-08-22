@@ -17,7 +17,7 @@ public class Trains extends TrainsHelper {
 		
 	  }
 	  
-	protected String routeDistance(String inputCoords) {
+	public String routeDistance(String inputCoords) {
 		final char coords[] = inputCoords.toCharArray();
 		final int lastIndex = coords.length - 1;
 		int totalDistance = 0;
@@ -34,7 +34,7 @@ public class Trains extends TrainsHelper {
 	}
 	
 	
-	protected int numberOfTripsMax(String start, String end, int max ) {
+	public int numberOfTripsMax(String start, String end, int max ) {
 		 int totalTrips = 0;
 		 Queue<String> queue = new ArrayDeque<String>();
 		 Queue<String> parentQueue = new ArrayDeque<String>();
@@ -57,7 +57,7 @@ public class Trains extends TrainsHelper {
 		 return totalTrips;
 	}
 
-	protected int numberOfTripsExactStops(String start, String end, int exact ) {
+	public int numberOfTripsExactStops(String start, String end, int exact ) {
 		LinkedList<String> visited = new LinkedList<String>();
 		trips = 0;
         visited.add(start);
@@ -91,7 +91,7 @@ public class Trains extends TrainsHelper {
 		    }
 	}
 		
-	protected int amountOfTripsWithinDistance(String start, String end, int maxDistance) {
+	public int amountOfTripsWithinDistance(String start, String end, int maxDistance) {
 		LinkedList<String> visited = new LinkedList<String>();
 		trips = 0;
         visited.add(start);
@@ -127,7 +127,7 @@ public class Trains extends TrainsHelper {
        
    }
  
-	protected int shortestRoute(String start, String end) {
+	public int shortestRoute(String start, String end) {
 		data.createCosts(start, end);
 		data.createParents(start, end);
 		

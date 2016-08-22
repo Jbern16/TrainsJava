@@ -54,7 +54,7 @@ public class Graph {
 		
 		public LinkedList<String> adjacentNodes(String last) {
 	        Set<String> adjacent = graph.get(last).keySet();
-	        if(adjacent==null) {
+	        if(adjacent == null) {
 	            return new LinkedList<String>();
 	        }
 	        return new LinkedList<String>(adjacent);
