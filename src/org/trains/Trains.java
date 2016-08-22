@@ -82,7 +82,7 @@ public class Trains {
 		         	}
 		      }
 		    for (String node : nodes) {
-		    	if (visited.contains(node) && !node.equals(end)) {
+		    	if (visited.contains(node) && data.graph.get(node).get(end) == null) {
 		            continue;
 		        }
 		    	visited.addLast(node);
