@@ -27,14 +27,18 @@ public class Graph {
 				if (graph.containsKey(start)) {
 					graph.get(start).put(end, distance);
 				} else {
-					graph.put(start, new HashMap<String, Integer>(){{put(end, distance);}});
+					graph.put(start, new HashMap<String, Integer>(){
+						
+						private static final long serialVersionUID = 1L;
+
+					{put(end, distance);}});
 				}
 			}
 			return graph;
 	    }
 		
 		public void createCosts(String start, String end) {
-			for (String key : graph.get(start).keySet()) {
+			for (String key : adjacentNodes(start)) {
 				costs.put(key, graph.get(start).get(key));
 			}
 			
@@ -51,10 +55,9 @@ public class Graph {
 		public LinkedList<String> adjacentNodes(String last) {
 	        Set<String> adjacent = graph.get(last).keySet();
 	        if(adjacent==null) {
-	            return new LinkedList();
+	            return new LinkedList<String>();
 	        }
 	        return new LinkedList<String>(adjacent);
 	    }
-		
 
 }

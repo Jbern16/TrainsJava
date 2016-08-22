@@ -3,17 +3,10 @@ package org.trains;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import org.junit.Before;
 import org.junit.Test;
 
 public class TrainsTest {
-//	AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
-	
-	
-	
-	
+
 	public ArrayList<String> createStationsArray(){
 		ArrayList<String> stations = new ArrayList<String>();
 		stations.add("AB5");

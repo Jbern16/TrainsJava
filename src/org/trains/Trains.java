@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 import org.graph.Graph;
 
-public class Trains {
+public class Trains extends TrainsHelper {
 	public Graph data;
 	public int trips;
 
-	  
 	 public Trains(ArrayList<String> stations) {
 		 this.data = new Graph(stations);
 		 this.trips = 0;
@@ -27,10 +25,10 @@ public class Trains {
 		for (int i = 0; i < lastIndex; i++) {
 			String lookup = Character.toString(coords[i]);
 			String endPoint = Character.toString(coords[i + 1]);
-			if (checkForIncompatipableRoute(lookup, endPoint)){
+			if (checkForIncompatipableRoute(lookup, endPoint, data.graph)){
 				return routeError();
 			};
-			totalDistance += distance(lookup, endPoint);	
+			totalDistance += distance(lookup, endPoint, data.graph);	
 		}
 		return String.valueOf(totalDistance);
 	}
@@ -60,15 +58,15 @@ public class Trains {
 	}
 
 	protected int numberOfTripsExactStops(String start, String end, int exact ) {
-		LinkedList<String> visited = new LinkedList();
+		LinkedList<String> visited = new LinkedList<String>();
 		trips = 0;
         visited.add(start);
-        numberOfTripsExactStops(start, end, visited, exact);
+        numberOfTripsExactStops(end, visited, exact);
         return trips;
         
 	}
 	
-	private void numberOfTripsExactStops(String start, String end, LinkedList<String> visited, int exact) {
+	private void numberOfTripsExactStops(String end, LinkedList<String> visited, int exact) {
 		LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
 			for (String node : nodes) {
 				if (visited.size() > exact) {
@@ -88,20 +86,20 @@ public class Trains {
 		            continue;
 		        }
 		    	visited.addLast(node);
-		        numberOfTripsExactStops(start, end, visited, exact);
+		        numberOfTripsExactStops(end, visited, exact);
 		        visited.removeLast();
 		    }
 	}
 		
 	protected int amountOfTripsWithinDistance(String start, String end, int maxDistance) {
-		LinkedList<String> visited = new LinkedList();
+		LinkedList<String> visited = new LinkedList<String>();
 		trips = 0;
         visited.add(start);
-        amountOfTripsWithinDistance(start, end, visited, maxDistance);
+        amountOfTripsWithinDistance(end, visited, maxDistance);
         return trips;
 	}
 				        
-   private void amountOfTripsWithinDistance(String start, String end, LinkedList<String> visited, int maxDistance) {
+   private void amountOfTripsWithinDistance(String end, LinkedList<String> visited, int maxDistance) {
        LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
        boolean maxPathReached = false;
 		for (String node : nodes) {
@@ -123,7 +121,7 @@ public class Trains {
 	            continue;
 	        }
 	    	visited.addLast(node);
-	        amountOfTripsWithinDistance(start, end, visited, maxDistance);
+	        amountOfTripsWithinDistance(end, visited, maxDistance);
 	        visited.removeLast();
 	    }
        
@@ -154,41 +152,6 @@ public class Trains {
 		
 		return data.costs.get(end);
 	}
-	
-	private String stringedRoute(LinkedList<String> route) {
-		StringBuilder visitedAsStringBuild = new StringBuilder();
-        for (String locale : route) {
-        	visitedAsStringBuild.append(locale);
-        }
-        
-        return visitedAsStringBuild.toString();
-	}
-	
-	private String findLowestCostNode(HashMap<String, Integer> costs, ArrayList<String> processed) {
-		Integer lowestCost = Integer.MAX_VALUE;
-		String lowestCostNode = null;
-		for (String key : costs.keySet() ) {
-			if ((costs.get(key) < lowestCost) && !processed.contains(key)) {
-				lowestCost = costs.get(key);
-				lowestCostNode = key;
-			}	
-		}
-		return lowestCostNode;
-	}
-
-	private boolean checkForIncompatipableRoute(String lookup, String endPoint) {
-		if (data.graph.get(lookup).get(endPoint) == null){
-			return true; 
-		} else {
-			return false;
-		}
-	}
-	
-	private String routeError(){
-		return "NO SUCH ROUTE";
-	}
-	
-	private int distance(String lookup, String endPoint) {
-		return data.graph.get(lookup).get(endPoint);
-	}
 }
+	
+
