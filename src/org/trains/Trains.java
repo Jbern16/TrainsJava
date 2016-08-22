@@ -11,12 +11,12 @@ import org.graph.Graph;
 public class Trains {
 	public Graph data;
 	public int trips;
-	public int currentDistance;
+
 	  
 	 public Trains(ArrayList<String> stations) {
 		 this.data = new Graph(stations);
 		 this.trips = 0;
-		 this.currentDistance = 0;
+		
 	  }
 	  
 	protected String routeDistance(String inputCoords) {
@@ -63,62 +63,59 @@ public class Trains {
 	
 	//this is giving me problems --- need to find better solution --- dfs??
 	protected int numberOfTripsExactStops(String start, String end, int exact ) {
-		int totalTrips = 0;
-		 Queue<String> queue = new ArrayDeque<String>();
-		 Queue<String> parentQueue = new ArrayDeque<String>();
-		 String currentParent = start;
-		 queue.addAll(data.graph.get(start).keySet());
-		 int currentDepth = 0;
-		 while (currentDepth <= exact - 1) {
-			  
-			 String neighbor = queue.remove();
-			  
-			  if (data.graph.get(currentParent).get(neighbor) == null) {
-				  currentParent = parentQueue.remove();
-				  currentDepth += 1;
-			  }
-			  
-			  parentQueue.add(neighbor);
-			  
-			  if (data.graph.get(currentParent).get("C") != null) {
-				  totalTrips += 1;
-			  }  
-			  queue.addAll(data.graph.get(neighbor).keySet());				  	  
-			  
-		 }	  
-		 return totalTrips;
+		LinkedList<String> visited = new LinkedList();
+        visited.add(start);
+        numberOfTripsExactStops(start, end, visited, exact);
+        return this.trips;
 	}
 	
+	private void numberOfTripsExactStops(String start, String end, LinkedList<String> visited, int exact) {
+		LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
+			for (String node : nodes) {
+				if (node.equals(end)) {
+					if (visited.size() == (exact)) {
+						trips += 1;
+					}
+					visited.add(node);
+					visited.removeLast();
+					break;
+		         	}
+		      }
+		    for (String node : nodes) {
+		    	if (visited.contains(node) && !node.equals(end)) {
+		            continue;
+		        }
+		    	visited.addLast(node);
+		        numberOfTripsExactStops(start, end, visited, exact);
+		        visited.removeLast();
+		      }
+	}
+		
+	
+
 	protected int amountOfTripsWithinDistance(String start, String end, int maxDistance) {
 		LinkedList<String> visited = new LinkedList();
         visited.add(start);
         amountOfTripsWithinDistance(start, end, visited, maxDistance);
         return this.trips;
 	}
-			
-		        
-		 
+				        
    private void amountOfTripsWithinDistance(String start, String end, LinkedList<String> visited, int maxDistance) {
        LinkedList<String> nodes = data.adjacentNodes(visited.getLast());
-	   for (String node : nodes) {
-	         if (node.equals(end)) {
-	        	currentDistance += 5;
-	            visited.add(node);
-	            
-	            trips += 1;
-	            visited.removeLast();
-	           }
-	        }
-	        for (String node : nodes) {
-	            if (currentDistance >= maxDistance) {
-	                continue;
-	            }
-	            visited.addLast(node);
-	            amountOfTripsWithinDistance(start, end, visited, maxDistance);
-	            visited.removeLast();
-	        }
-	       
-	        
+       
+//	            StringBuilder visitedAsStringBuild = new StringBuilder();
+//	            for (String locale : visited) {
+//	            	visitedAsStringBuild.append(locale);
+//	            }
+//	            final String visitedAsString = visitedAsStringBuild.toString();
+//	  
+//	            int routedDistance = Integer.valueOf(routeDistance(visitedAsString));
+//	            
+//	            if (routedDistance >= maxDistance) {
+//	                continue;
+//	            }
+	    
+	 
    }
  
 	protected int shortestRoute(String start, String end) {
