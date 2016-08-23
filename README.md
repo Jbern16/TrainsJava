@@ -85,7 +85,7 @@ to the above questions to ``stations_output.txt``.
    * find number of trips with an exact number of stops using a depth first search
 	
   shortestRoute(String start of route, String end of route) 
-   * find shortest route between two stations using Dijkstra's Algorirth
+   * find shortest route between two stations using Dijkstra's Algorithm
 	
   amountOfTripsWithinDistance(String start of route, String end of route, Integer maximum distance allowed) 
    * find all routes from start to end under a certain distance apart using a depth first search. 
