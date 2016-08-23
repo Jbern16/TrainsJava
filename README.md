@@ -57,7 +57,6 @@ to the above questions to ``stations_output.txt``.
 * Tests are using the data asked from the problem 
 
 * With the project open in Eclipse, in the package explorer, right click on `TrainsJava` and click `Run As --> JUnit Test`
-* On Mac You can use 
 
 * Select `RunAllTests` config
 
