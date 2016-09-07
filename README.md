@@ -57,7 +57,6 @@ to the above questions to ``stations_output.txt``.
 * Tests are using the data asked from the problem 
 
 * With the project open in Eclipse, in the package explorer, right click on `TrainsJava` and click `Run As --> JUnit Test`
-* On Mac You can use 
 
 * Select `RunAllTests` config
 
@@ -86,7 +85,7 @@ to the above questions to ``stations_output.txt``.
    * find number of trips with an exact number of stops using a depth first search
 	
   shortestRoute(String start of route, String end of route) 
-   * find shortest route between two stations using Dijkstra's Algorirth
+   * find shortest route between two stations using Dijkstra's Algorithm
 	
   amountOfTripsWithinDistance(String start of route, String end of route, Integer maximum distance allowed) 
    * find all routes from start to end under a certain distance apart using a depth first search. 
