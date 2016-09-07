@@ -2,13 +2,14 @@ package org.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
 public class Graph {
 		
-		public HashMap<String, HashMap<String, Integer>> graph;
-		public HashMap<String, Integer> costs;
-		public HashMap<String, String> parents;
+		public Map<String, Map<String, Integer>> graph;
+		public Map<String, Integer> costs;
+		public Map<String, String> parents;
 
 		public Graph(ArrayList<String> stations) {
 			this.graph = initializeGraph(stations);
@@ -17,8 +18,8 @@ public class Graph {
 			
 	  }  
 		
-		private HashMap<String, HashMap<String, Integer>> initializeGraph(ArrayList<String> inputGraph) {
-			graph = new HashMap<String, HashMap<String, Integer>>();
+		private Map<String, Map<String, Integer>> initializeGraph(ArrayList<String> inputGraph) {
+			graph = new HashMap<String, Map<String, Integer>>();
 			
 			for (String coord : inputGraph) {
 				String start = Character.toString(coord.charAt(0));

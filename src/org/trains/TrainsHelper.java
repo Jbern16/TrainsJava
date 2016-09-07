@@ -1,8 +1,8 @@
 package org.trains;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public abstract class TrainsHelper {
 	
@@ -15,7 +15,7 @@ public abstract class TrainsHelper {
         return visitedAsStringBuild.toString();
 	}
 	
-	protected static boolean checkForIncompatipableRoute(String lookup, String endPoint, HashMap<String, HashMap<String, Integer>> graph) {
+	protected static boolean checkForIncompatipableRoute(String lookup, String endPoint, Map<String, Map<String, Integer>> graph) {
 		if (graph.get(lookup).get(endPoint) == null){
 			return true; 
 		} else {
@@ -27,11 +27,11 @@ public abstract class TrainsHelper {
 		return "NO SUCH ROUTE";
 	}
 	
-	protected static int distance(String lookup, String endPoint, HashMap<String, HashMap<String, Integer>> graph) {
+	protected static int distance(String lookup, String endPoint, Map<String, Map<String, Integer>> graph) {
 		return graph.get(lookup).get(endPoint);
 	}
 	
-	protected static String findLowestCostNode(HashMap<String, Integer> costs, ArrayList<String> processed) {
+	protected static String findLowestCostNode(Map<String, Integer> costs, ArrayList<String> processed) {
 		Integer lowestCost = Integer.MAX_VALUE;
 		String lowestCostNode = null;
 		for (String key : costs.keySet() ) {

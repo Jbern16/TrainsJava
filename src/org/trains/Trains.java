@@ -2,8 +2,8 @@ package org.trains;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import org.graph.Graph;
 
@@ -136,7 +136,7 @@ public class Trains extends TrainsHelper {
 		
 		while (node != null) {
 			int cost = data.costs.get(node);
-			HashMap<String, Integer>neighbors = data.graph.get(node);
+			Map<String, Integer>neighbors = data.graph.get(node);
 			for (String key : neighbors.keySet()) {
 				int newCost = cost + neighbors.get(key);
 			
