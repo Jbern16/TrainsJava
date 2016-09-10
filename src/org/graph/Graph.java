@@ -1,5 +1,5 @@
 package org.graph;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -7,20 +7,33 @@ import java.util.Set;
 
 public class Graph {
 		
-		public Map<String, Map<String, Integer>> graph;
-		public Map<String, Integer> costs;
-		public Map<String, String> parents;
+		private Map<String, Map<String, Integer>> graph;
+		private Map<String, Integer> costs;
+		private Map<String, String> parents;
 
-		public Graph(ArrayList<String> stations) {
+		public Graph(List<String> stations) {
 			this.graph = initializeGraph(stations);
 			this.costs = new HashMap<String, Integer>();
 			this.parents = new HashMap<String, String>();
 			
 	  }  
 		
-		private Map<String, Map<String, Integer>> initializeGraph(ArrayList<String> inputGraph) {
+		public Map<String, Map<String, Integer>> getGraph() {
+			return graph;
+		}
+		
+		public Map<String, Integer> getCosts() {
+			return costs;
+		}
+		
+		public Map<String, String> getParents() {
+			return parents;
+		}
+		
+		private Map<String, Map<String, Integer>> initializeGraph(List<String> inputGraph) {
 			graph = new HashMap<String, Map<String, Integer>>();
 			
+
 			for (String coord : inputGraph) {
 				String start = Character.toString(coord.charAt(0));
 				String end = Character.toString(coord.charAt(1));

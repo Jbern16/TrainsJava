@@ -2,9 +2,11 @@ package org.main;
 
 import java.util.ArrayList;
 
+import org.graph.Graph;
 import org.io.Formatter;
 import org.io.Reader;
 import org.io.Writer;
+import org.trains.Routes;
 import org.trains.Trains;
 
 public class Main {
@@ -19,7 +21,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		ArrayList<String> stations = Reader.loadStations("station_list.txt");
-		Trains train = new Trains(stations);
+		Graph graph = new Graph(stations);
+		Routes routes = new Routes(graph.getGraph());
+		Trains train = new Trains(graph, routes);
 		
 		// to find distance, please insert or edit the route argument for routeDistance below as a String
 		String output1 = train.routeDistance("ABC");

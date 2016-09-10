@@ -7,16 +7,23 @@ import java.util.Map;
 import java.util.Queue;
 import org.graph.Graph;
 
-public class Trains extends TrainsHelper {
-	public Graph data;
-	public int trips;
 
-	 public Trains(ArrayList<String> stations) {
-		 this.data = new Graph(stations);
+public class Trains {
+	private Graph data;
+	private int trips;
+	private Routes routes;
+
+	 public Trains(Graph graph, Routes routes) {
+		 this.data = graph;
 		 this.trips = 0;
-		
+		 this.routes = routes;
 	  }
 	  
+	
+	public Graph getGraph() {
+		return data;
+	}
+	
 	public String routeDistance(String inputCoords) {
 		final char coords[] = inputCoords.toCharArray();
 		final int lastIndex = coords.length - 1;
@@ -25,10 +32,10 @@ public class Trains extends TrainsHelper {
 		for (int i = 0; i < lastIndex; i++) {
 			String lookup = Character.toString(coords[i]);
 			String endPoint = Character.toString(coords[i + 1]);
-			if (checkForIncompatipableRoute(lookup, endPoint, data.graph)){
-				return routeError();
+			if (routes.checkForIncompatipableRoute(lookup, endPoint)){
+				return routes.routeError();
 			};
-			totalDistance += distance(lookup, endPoint, data.graph);	
+			totalDistance += routes.distance(lookup, endPoint);	
 		}
 		return String.valueOf(totalDistance);
 	}
@@ -49,7 +56,7 @@ public class Trains extends TrainsHelper {
 			  } else{
 				  queue.addAll(data.adjacentNodes(neighbor));  
 			  } 
-			  if (data.graph.get(currentParent).get(neighbor) == null) {
+			  if (data.getGraph().get(currentParent).get(neighbor) == null) {
 				  currentParent = parentQueue.remove();
 				  currentDepth += 1;
 			  }
@@ -82,7 +89,7 @@ public class Trains extends TrainsHelper {
 		         }
 		    }
 		    for (String node : nodes) {
-		    	if (visited.contains(node) && data.graph.get(node).get(end) == null) {
+		    	if (visited.contains(node) && data.getGraph().get(node).get(end) == null) {
 		            continue;
 		        }
 		    	visited.addLast(node);
@@ -105,7 +112,7 @@ public class Trains extends TrainsHelper {
 		for (String node : nodes) {
 			if (node.equals(end)) {
 				visited.add(node);
-				int routedDistance =  Integer.valueOf(routeDistance(stringedRoute(visited)));
+				int routedDistance =  Integer.valueOf(routeDistance(routes.stringedRoute(visited)));
 				if (routedDistance < maxDistance) {
 					trips += 1;
 				} else {
@@ -132,25 +139,25 @@ public class Trains extends TrainsHelper {
 		data.createParents(start, end);
 		
 		ArrayList<String> processed = new ArrayList<String>();
-		String node = findLowestCostNode(data.costs, processed);
+		String node = routes.findLowestCostNode(data.getCosts(), processed);
 		
 		while (node != null) {
-			int cost = data.costs.get(node);
-			Map<String, Integer>neighbors = data.graph.get(node);
+			int cost = data.getCosts().get(node);
+			Map<String, Integer>neighbors = data.getGraph().get(node);
 			for (String key : neighbors.keySet()) {
 				int newCost = cost + neighbors.get(key);
 			
-				if( data.costs.get(key) > newCost) {
-					data.costs.put(key, newCost);
-					data.parents.put(key, node);
+				if( data.getCosts().get(key) > newCost) {
+					data.getCosts().put(key, newCost);
+					data.getParents().put(key, node);
 				}
 			}
 	
 			processed.add(node);
-			node = findLowestCostNode(data.costs, processed);
+			node = routes.findLowestCostNode(data.getCosts(), processed);
 		}
 		
-		return data.costs.get(end);
+		return data.getCosts().get(end);
 	}
 }
 	

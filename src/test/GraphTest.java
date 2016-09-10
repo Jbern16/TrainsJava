@@ -46,7 +46,7 @@ public class GraphTest {
 		Graph graph = new Graph(stations);
 		graph.createParents("A", "C");
 		
-		assertEquals("Unknown", graph.parents.get("C"));
+		assertEquals("Unknown", graph.getParents().get("C"));
 	}
 	
 	@Test
@@ -54,10 +54,10 @@ public class GraphTest {
 		ArrayList<String> stations = createStationsArray(); 
 		Graph graph = new Graph(stations);
 		graph.createCosts("A", "C");
-		int costC = graph.costs.get("C");
-		int costB = graph.costs.get("B");
-		int costD = graph.costs.get("D");
-		int costE = graph.costs.get("E");
+		int costC = graph.getCosts().get("C");
+		int costB = graph.getCosts().get("B");
+		int costD = graph.getCosts().get("D");
+		int costE = graph.getCosts().get("E");
 		assertEquals(costC, Integer.MAX_VALUE);
 	
 		assertEquals(costB, 5);
